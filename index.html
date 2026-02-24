@@ -64,8 +64,11 @@ body{font-family:'Instrument Sans',system-ui,sans-serif;background:var(--bg);col
 .filter-row2{display:flex;gap:6px;align-items:center;flex-wrap:wrap;width:100%}
 
 /* VIEWS BAR */
-.views-bar{background:var(--white);border-bottom:1px solid var(--border);padding:6px 16px;display:flex;gap:4px;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.views-bar{background:var(--white);border-bottom:1px solid var(--border);padding:6px 16px;display:flex;gap:4px;overflow-x:auto;-webkit-overflow-scrolling:touch;align-items:center}
 .views-bar::-webkit-scrollbar{display:none}
+.vgroup{display:flex;gap:3px;align-items:center}
+.vgroup-label{font-size:8px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--text3);margin-right:2px;flex-shrink:0}
+.vsep{width:1px;height:20px;background:var(--border);margin:0 6px;flex-shrink:0}
 .vpill{height:28px;padding:0 12px;border-radius:20px;background:var(--card2);border:1px solid var(--border);color:var(--text2);font-size:11px;font-weight:600;cursor:pointer;display:grid;place-items:center;transition:all .12s;font-family:inherit;flex-shrink:0;white-space:nowrap}
 .vpill:hover{background:var(--bg);border-color:var(--border2)}
 .vpill.on{background:var(--brand);color:#fff;border-color:var(--brand)}
@@ -185,6 +188,26 @@ td{padding:7px 6px;white-space:nowrap;font-size:12px;border-bottom:1px solid #f3
 .strat-txt h5{font-size:12px;font-weight:700;margin-bottom:2px}
 .strat-txt p{font-size:11px;color:var(--text2);line-height:1.5}
 
+/* SOURCES */
+.src-wrap{padding:12px 16px 40px;max-width:800px;margin:0 auto}
+.src-intro{background:var(--white);border:1px solid var(--border);border-radius:var(--r2);padding:16px;box-shadow:var(--shadow);margin-bottom:12px}
+.src-intro h2{font-size:16px;font-weight:700;margin-bottom:4px}
+.src-intro p{font-size:12px;color:var(--text2);line-height:1.6}
+.src-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r2);overflow:hidden;box-shadow:var(--shadow);margin-bottom:10px}
+.src-card-hd{padding:12px 16px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border)}
+.src-card-hd h3{font-size:13px;font-weight:700;display:flex;align-items:center;gap:8px}
+.src-badge{display:inline-block;padding:2px 8px;border-radius:4px;font-size:9px;font-weight:700;letter-spacing:.3px}
+.src-card-hd .src-updated{font-size:10px;color:var(--text3);font-weight:500}
+.src-card-bd{padding:14px 16px}
+.src-fields{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:10px}
+.src-field{display:inline-block;padding:3px 8px;border-radius:4px;background:var(--card2);border:1px solid var(--border);font-size:10px;font-weight:600;color:var(--text2);font-family:'DM Mono',monospace}
+.src-desc{font-size:12px;color:var(--text2);line-height:1.7}
+.src-desc b{color:var(--text);font-weight:600}
+.src-stats{display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:6px;margin-top:10px}
+.src-stat{background:var(--card2);border-radius:var(--r);padding:8px;text-align:center}
+.src-stat .v{font-family:'DM Mono',monospace;font-size:14px;font-weight:600;color:var(--text)}
+.src-stat .l{font-size:8px;text-transform:uppercase;letter-spacing:.5px;color:var(--text3);font-weight:700;margin-top:2px}
+
 /* DETAIL PANEL */
 .ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.3);z-index:200;backdrop-filter:blur(1px)}
 .ov.on{display:block}
@@ -280,6 +303,7 @@ td{padding:7px 6px;white-space:nowrap;font-size:12px;border-bottom:1px solid #f3
   <div class="tab" data-t="profiles">Profiles</div>
   <div class="tab" data-t="shortlist">Shortlist <span class="badge" id="sl-badge">0</span></div>
   <div class="tab" data-t="planner">Planner</div>
+  <div class="tab" data-t="sources">Sources</div>
 </div>
 
 <div class="filters" id="filtersBar">
@@ -302,14 +326,11 @@ td{padding:7px 6px;white-space:nowrap;font-size:12px;border-bottom:1px solid #f3
 </div>
 
 <div class="views-bar" id="viewsBar">
-  <div class="vpill on" data-vm="standard">Standard</div>
-  <div class="vpill" data-vm="mmvalue">MM Value</div>
-  <div class="vpill" data-vm="cashcow">Cash Cow</div>
-  <div class="vpill" data-vm="form">Form</div>
-  <div class="vpill" data-vm="consistency">Consistency</div>
-  <div class="vpill" data-vm="pod">POD Finder</div>
-  <div class="vpill" data-vm="history">History</div>
-  <div class="vpill" data-vm="draft">Draft Intel</div>
+  <div class="vgroup"><span class="vgroup-label">Overview</span><div class="vpill on" data-vm="standard">Standard</div><div class="vpill" data-vm="history">History</div></div>
+  <div class="vsep"></div>
+  <div class="vgroup"><span class="vgroup-label">Analysis</span><div class="vpill" data-vm="form">Form</div><div class="vpill" data-vm="consistency">Consistency</div></div>
+  <div class="vsep"></div>
+  <div class="vgroup"><span class="vgroup-label">Scouting</span><div class="vpill" data-vm="mmvalue">MM Value</div><div class="vpill" data-vm="cashcow">Cash Cow</div><div class="vpill" data-vm="pod">POD Finder</div><div class="vpill" data-vm="draft">Draft Intel</div></div>
 </div>
 
 <div class="panel on" id="pnlPlayers">
@@ -322,6 +343,7 @@ td{padding:7px 6px;white-space:nowrap;font-size:12px;border-bottom:1px solid #f3
 <div class="panel" id="pnlProfiles"><div class="prof-grid" id="profGrid"></div></div>
 <div class="panel" id="pnlShortlist"><div class="sl-wrap" id="slWrap"></div></div>
 <div class="panel" id="pnlPlanner"><div class="sl-wrap" id="planWrap"></div></div>
+<div class="panel" id="pnlSources"><div class="src-wrap" id="srcWrap"></div></div>
 
 <div class="ov" id="ov"></div>
 <div class="det" id="det"><div class="det-hd"><div class="det-x" id="dx">✕</div><div class="det-nm" id="dn"></div><div class="det-sub" id="ds"></div></div><div id="db"></div></div>
@@ -773,6 +795,110 @@ function renderPlanner(){
   document.getElementById('planWrap').innerHTML=h;
 }
 
+function renderSources(){
+  var h='';
+  h+='<div class="src-intro"><h2>Data Sources</h2><p>All the external data feeding into this dashboard. Each source adds specific columns, tags, or scouting intel to the player database.</p></div>';
+
+  // 1. MOREIRA'S MAGIC
+  var mmPlayers=P.filter(function(p){return p.mmv!=null;}).length;
+  var mmComments=P.filter(function(p){return p.cmt;}).length;
+  var mmTiered=P.filter(function(p){return p.pt;}).length;
+  h+='<div class="src-card">';
+  h+='<div class="src-card-hd"><h3><span class="src-badge" style="background:var(--brandBg);color:var(--brand)">EXPERT</span> Moreira\'s Magic</h3><span class="src-updated">Pre-season 2026</span></div>';
+  h+='<div class="src-card-bd">';
+  h+='<div class="src-desc"><b>What it is:</b> Expert rankings and scouting commentary from Moreira\'s Magic. Provides an independent draft ranking of every relevant player, a value score (MMV) comparing expert rank vs classic price, scouting notes on role, risk, and upside, plus tier classifications.</div>';
+  h+='<div class="src-fields" style="margin-top:10px"><span class="src-field">dr (MM Rank)</span><span class="src-field">mmv (MM Value)</span><span class="src-field">cmt (Scouting Notes)</span><span class="src-field">pt (MM Tier)</span><span class="src-field">pf (Proj Floor)</span><span class="src-field">rsk (Risk Score)</span><span class="src-field">rr (Risk Reason)</span><span class="src-field">vorp (VORP)</span><span class="src-field">chg (Rank Change)</span></div>';
+  h+='<div class="src-stats">';
+  h+='<div class="src-stat"><div class="v">'+mmPlayers+'</div><div class="l">Ranked</div></div>';
+  h+='<div class="src-stat"><div class="v">'+mmComments+'</div><div class="l">Scouted</div></div>';
+  h+='<div class="src-stat"><div class="v">'+mmTiered+'</div><div class="l">Tiered</div></div>';
+  h+='</div>';
+  h+='<div class="src-desc" style="margin-top:10px"><b>Used in:</b> Players tab (MM Value view, Draft Intel view), Planner tab (Value Picks, Injuries, Position Structure), Player detail panel (Moreira\'s Magic section)</div>';
+  h+='</div></div>';
+
+  // 2. WARNIE / THE TRADERS
+  var wFeat=P.filter(function(p){return p.wf;}).length;
+  var wWatch=P.filter(function(p){return p.ww;}).length;
+  var wNotes=P.filter(function(p){return p.wn;}).length;
+  h+='<div class="src-card">';
+  h+='<div class="src-card-hd"><h3><span class="src-badge" style="background:var(--greenBg);color:var(--green)">EXPERT</span> Warnie — The Traders</h3><span class="src-updated">Feb 24, 2026</span></div>';
+  h+='<div class="src-card-bd">';
+  h+='<div class="src-desc"><b>What it is:</b> Cash cow and rookie guide from Warnie at The Traders (AFL Fantasy podcast). Flags rookies with strong job security, role clarity and scoring upside. Picks are split into "Featured" (high conviction) and "Watch" (monitor through pre-season).</div>';
+  h+='<div class="src-fields" style="margin-top:10px"><span class="src-field">wf (Warnie Pick)</span><span class="src-field">ww (Warnie Watch)</span><span class="src-field">wn (Warnie Notes)</span></div>';
+  h+='<div class="src-stats">';
+  h+='<div class="src-stat"><div class="v">'+wFeat+'</div><div class="l">Featured</div></div>';
+  h+='<div class="src-stat"><div class="v">'+wWatch+'</div><div class="l">Watchlist</div></div>';
+  h+='<div class="src-stat"><div class="v">'+wNotes+'</div><div class="l">With Notes</div></div>';
+  h+='</div>';
+  h+='<div class="src-desc" style="margin-top:10px"><b>Used in:</b> Players tab (Cash Cow view, Warnie column), Planner tab (Warnie\'s Cash Cows card), Player detail panel (Warnie badge + notes)</div>';
+  h+='</div></div>';
+
+  // 3. ADP DATA
+  var adpPlayers=P.filter(function(p){return p.adpt&&p.adpt!=='UNTIERED';}).length;
+  h+='<div class="src-card">';
+  h+='<div class="src-card-hd"><h3><span class="src-badge" style="background:var(--blueBg);color:var(--blue)">COMMUNITY</span> Average Draft Position (ADP)</h3><span class="src-updated">Pre-season 2026</span></div>';
+  h+='<div class="src-card-bd">';
+  h+='<div class="src-desc"><b>What it is:</b> Aggregated draft position data from the AFL Fantasy community. Shows where the wider market is drafting each player, broken into tiers and position-specific ranks. Useful for identifying where expert opinion (MM) diverges from community consensus.</div>';
+  h+='<div class="src-fields" style="margin-top:10px"><span class="src-field">adpt (ADP Tier)</span><span class="src-field">adpr (ADP Pos Rank)</span><span class="src-field">adpl (ADP Position)</span></div>';
+  h+='<div class="src-stats">';
+  h+='<div class="src-stat"><div class="v">'+adpPlayers+'</div><div class="l">Players w/ ADP</div></div>';
+  h+='</div>';
+  h+='<div class="src-desc" style="margin-top:10px"><b>Used in:</b> Players tab (Draft Intel view, ADP Tier column), Player detail panel (Draft Intel section)</div>';
+  h+='</div></div>';
+
+  // 4. AFL FANTASY OFFICIAL
+  h+='<div class="src-card">';
+  h+='<div class="src-card-hd"><h3><span class="src-badge" style="background:var(--purpleBg);color:var(--purple)">OFFICIAL</span> AFL Fantasy Platform</h3><span class="src-updated">Season 2025 final + 2026 pricing</span></div>';
+  h+='<div class="src-card-bd">';
+  h+='<div class="src-desc"><b>What it is:</b> Official player data from the AFL Fantasy platform. Includes 2026 starting prices, 2025 season averages, game-by-game scoring, ownership percentages, breakeven calculations, bye rounds, and positional eligibility including DPP status.</div>';
+  h+='<div class="src-fields" style="margin-top:10px"><span class="src-field">pr (Price)</span><span class="src-field">av (Average)</span><span class="src-field">be (Breakeven)</span><span class="src-field">own (Ownership%)</span><span class="src-field">gp (Games)</span><span class="src-field">tog (TOG%)</span><span class="src-field">cba (CBA%)</span><span class="src-field">hi / lo</span><span class="src-field">l3 / l5</span><span class="src-field">pb / ab</span><span class="src-field">mb (Bye)</span><span class="src-field">dpp</span></div>';
+  h+='<div class="src-stats">';
+  h+='<div class="src-stat"><div class="v">'+P.length+'</div><div class="l">Total Players</div></div>';
+  var dppCount=P.filter(function(p){return p.dpp;}).length;
+  h+='<div class="src-stat"><div class="v">'+dppCount+'</div><div class="l">DPP Players</div></div>';
+  var srcTeams=[];P.forEach(function(p){if(p.t&&srcTeams.indexOf(p.t)<0)srcTeams.push(p.t);});
+  h+='<div class="src-stat"><div class="v">'+srcTeams.length+'</div><div class="l">Teams</div></div>';
+  h+='</div>';
+  h+='<div class="src-desc" style="margin-top:10px"><b>Used in:</b> All tabs — this is the base dataset that everything else builds on</div>';
+  h+='</div></div>';
+
+  // 5. HISTORICAL AVERAGES
+  var hist24=P.filter(function(p){return p.a24;}).length;
+  var hist23=P.filter(function(p){return p.a23;}).length;
+  h+='<div class="src-card">';
+  h+='<div class="src-card-hd"><h3><span class="src-badge" style="background:var(--card2);color:var(--text2)">HISTORICAL</span> Multi-Year Averages</h3><span class="src-updated">2021\u20132025 seasons</span></div>';
+  h+='<div class="src-card-bd">';
+  h+='<div class="src-desc"><b>What it is:</b> Season-level averages going back to 2021, plus VFL/reserves data where available. Used to assess long-term scoring trends, career trajectory and whether a player\'s current price represents genuine form or an outlier season.</div>';
+  h+='<div class="src-fields" style="margin-top:10px"><span class="src-field">a24 (2024 avg)</span><span class="src-field">a23 (2023 avg)</span><span class="src-field">a22 (2022 avg)</span><span class="src-field">a21 (2021 avg)</span><span class="src-field">res (VFL avg)</span><span class="src-field">szn (Seasons)</span></div>';
+  h+='<div class="src-stats">';
+  h+='<div class="src-stat"><div class="v">'+hist24+'</div><div class="l">Have 2024</div></div>';
+  h+='<div class="src-stat"><div class="v">'+hist23+'</div><div class="l">Have 2023</div></div>';
+  h+='</div>';
+  h+='<div class="src-desc" style="margin-top:10px"><b>Used in:</b> Players tab (History view), Player detail panel (Historical section)</div>';
+  h+='</div></div>';
+
+  // 6. INJURY INTEL
+  var injCount=P.filter(function(p){return p.inj;}).length;
+  var seasonOver=P.filter(function(p){return p.inj===3;}).length;
+  var extended=P.filter(function(p){return p.inj===2;}).length;
+  var monitor=P.filter(function(p){return p.inj===1;}).length;
+  h+='<div class="src-card">';
+  h+='<div class="src-card-hd"><h3><span class="src-badge" style="background:var(--redBg);color:var(--red)">STATUS</span> Injury & Availability Intel</h3><span class="src-updated">Pre-season 2026</span></div>';
+  h+='<div class="src-card-bd">';
+  h+='<div class="src-desc"><b>What it is:</b> Player availability flags compiled from Moreira\'s scouting notes and official AFL injury lists. Players are categorised by severity — season over, extended absence, or monitor through pre-season.</div>';
+  h+='<div class="src-fields" style="margin-top:10px"><span class="src-field">inj (Injury Level)</span><span class="src-field">st (Status)</span><span class="src-field">rr (Risk Reason)</span></div>';
+  h+='<div class="src-stats">';
+  h+='<div class="src-stat"><div class="v">'+injCount+'</div><div class="l">Flagged</div></div>';
+  h+='<div class="src-stat"><div class="v" style="color:var(--red)">'+seasonOver+'</div><div class="l">Season Over</div></div>';
+  h+='<div class="src-stat"><div class="v" style="color:#92400e">'+extended+'</div><div class="l">Extended</div></div>';
+  h+='<div class="src-stat"><div class="v">'+monitor+'</div><div class="l">Monitor</div></div>';
+  h+='</div>';
+  h+='<div class="src-desc" style="margin-top:10px"><b>Used in:</b> Planner tab (Injuries & Do Not Pick card), Player detail panel (status badge + risk score)</div>';
+  h+='</div></div>';
+
+  document.getElementById('srcWrap').innerHTML=h;
+}
+
 function updH(){
   var sp=S.sl.reduce(function(s,p){return s+p.pr;},0);
   var lt=18300000-sp;
@@ -877,9 +1003,9 @@ function switchTab(t){
   S.tab=t;
   document.querySelectorAll('.tab').forEach(function(x){x.classList.toggle('on',x.dataset.t===t);});
   document.querySelectorAll('.panel').forEach(function(x){x.classList.remove('on');});
-  var m={players:'pnlPlayers',profiles:'pnlProfiles',shortlist:'pnlShortlist',planner:'pnlPlanner'};
+  var m={players:'pnlPlayers',profiles:'pnlProfiles',shortlist:'pnlShortlist',planner:'pnlPlanner',sources:'pnlSources'};
   document.getElementById(m[t]).classList.add('on');
-  var hideExtras=(t==='shortlist'||t==='planner');
+  var hideExtras=(t==='shortlist'||t==='planner'||t==='sources');
   var hideViews=(t!=='players');
   document.getElementById('filtersBar').style.display=hideExtras?'none':'flex';
   document.getElementById('viewsBar').style.display=hideViews?'none':'flex';
@@ -891,6 +1017,7 @@ function render(){
   else if(S.tab==='profiles')renderProfiles();
   else if(S.tab==='shortlist')renderShortlist();
   else if(S.tab==='planner')renderPlanner();
+  else if(S.tab==='sources')renderSources();
   updH();updC();
 }
 
